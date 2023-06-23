@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import * as api from '../api';
-import { toast } from 'react-toastify';
+
 const initialState = {
     movieData: [],
     filteredMovieData:[],
-    error: null,
     loading: true,
-    islogged: false
+
 };
 
 
@@ -30,9 +28,8 @@ const movieSlice = createSlice({
                 const data=JSON.parse(payload).results;
                 state.movieData=data
                 state.filteredMovieData=data;
-                state.islogged = true;
                 state.loading = false;
-                toast.success("Data loaded Successfully");
+               
             }  
         })   
     }

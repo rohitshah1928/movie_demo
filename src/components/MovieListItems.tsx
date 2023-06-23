@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import axios from 'axios';
 import SearchInput from './SearchInput';
@@ -7,8 +7,9 @@ import { RootState } from '../store/store';
 import { filterBySearch, handleSortingUtils } from '../utils/Utility';
 import ReactStars from 'react-stars';
 import { Oval } from 'react-loader-spinner';
+import Ratingchips from './Ratingchips';
 
-const MovieListItems = (props: any) => {
+const MovieListItems = () => {
 
     const { movieData, loading } = useSelector((state: RootState) => state.movie);
     const [filterMovielist, setFilterMovielist] = useState<[key: string][]>(movieData)
@@ -47,7 +48,7 @@ const MovieListItems = (props: any) => {
     };
 
     return (
-        <section className="antialiased bg-gray-100 text-gray-600 h-screen px-4">
+        <section className="antialiase text-gray-600 px-4 h-full">
             {
                 loading ? <div className='flex justify-center items-center h-full'>
                     <Oval
@@ -65,9 +66,9 @@ const MovieListItems = (props: any) => {
                     />
                 </div> :
 
-                    <div className="flex  justify-left">
+                    <div className=" xl:flex flex-none container my-4 md:min-w-0 min-w-full" >
 
-                        <div className="w-full max-w-2xl  bg-white shadow-lg rounded-sm border border-gray-200">
+                        <div className="w-full max-w-2xl   bg-white shadow-lg rounded-sm border border-gray-200">
                             <header className="px-5 py-4 border-b border-gray-100">
                                 <SearchInput
                                     type="search"
@@ -77,11 +78,11 @@ const MovieListItems = (props: any) => {
                             </header>
                             <div className="p-3">
                                 <div className="overflow-x-auto">
-                                    <table className="table-auto w-full">
+                                    <table className="table-auto min-w-4xl">
                                         <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                             <tr>
-                                                <th className="p-2 whitespace-nowrap" >
-                                                    <div className="font-semibold text-left" onClick={() => handleSorting('episode_id')}>Episode No</div>
+                                                <th className="p-1 xl:p-2 md:p-2 whitespace-nowrap" >
+                                                    <div className="font-semibold text-left text-xs" onClick={() => handleSorting('episode_id')}>Episode No</div>
                                                 </th>
                                                 <th className="p-2 whitespace-nowrap" >
                                                     <div className="font-semibold text-left" onClick={() => handleSorting('title')}>Title</div>
@@ -95,18 +96,18 @@ const MovieListItems = (props: any) => {
                                             </tr>
                                         </thead>
                                         {
-                                            filterMovielist?.map((item: any) => (
-                                                <tbody className="text-sm divide-y divide-gray-100 cursor-pointer">
-                                                    <tr onClick={() => handleClick(item)}>
-                                                        <td className="p-2 whitespace-nowrap">
+                                            filterMovielist?.map((item: any,index) => (
+                                                <tbody className="text-xs sm:text-sm  divide-y divide-gray-100 cursor-pointer" key={index}>
+                                                    <tr onClick={() => handleClick(item)} >
+                                                        <td className="p-1 sm:p-2 whitespace-nowrap">
                                                             <div className="flex items-center">
-                                                                <div className="font-medium text-gray-800">{"EPISODE " + item.episode_id}</div>
+                                                                <div>{"EPISODE " + item.episode_id}</div>
                                                             </div>
                                                         </td>
-                                                        <td className="p-2 whitespace-nowrap">
+                                                        <td className="p-1 sm:p-2 whitespace-nowrap">
                                                             <div className="text-left">{"EPISODE " + item.episode_id}-{item.title}</div>
                                                         </td>
-                                                        <td className="p-2 whitespace-nowrap flex flex-row">
+                                                        <td className="p-1 sm:p-2 whitespace-nowrap flex flex-row">
                                                             <ReactStars
                                                                 count={10}
                                                                 size={18}
@@ -115,7 +116,7 @@ const MovieListItems = (props: any) => {
                                                                 color2={'#ffd700'} />
 
                                                         </td>
-                                                        <td className="p-2 whitespace-nowrap">
+                                                        <td className="p-1 sm:p-2 whitespace-nowrap">
                                                             <div className="text-left font-medium text-green-500">{item.release_date}</div>
                                                         </td>
 
@@ -129,20 +130,20 @@ const MovieListItems = (props: any) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full max-w-2xl  bg-white shadow-lg rounded-sm border border-gray-200">
+                        <div className="w-full max-w-2xl xl:ml-2 xs:mt-1 md:mt-0 container bg-white shadow-lg rounded-sm border border-gray-200">
                             <header className="px-5 py-4 border-b border-gray-100">
-                                <h2 className="font-semibold text-gray-800">Movie Details</h2>
+                                <h2 className="font-semibold text-gray-400">Movie Details</h2>
                             </header>
                             <div className="p-3">
-                                <div className="overflow-x-auto">
+                                <div className="overflow-none">
 
                                     {
                                         selectedMovieDetail.title ? <div>
-                                            <div className="font-large text-gray-800">{"EPISODE " + selectedMovieDetail.episode_id} -{selectedMovieDetail.title}</div>
+                                            <div className="font-semibold text-gray-800">{"EPISODE " + selectedMovieDetail.episode_id} -{selectedMovieDetail.title}</div>
 
                                             <div className='flex flex-column my-8'>
                                                 <div className="w-30  flex-shrink-0 mr-2 sm:mr-3"><img className="rounded-none" src={selectedMovieDetail.poster} width="120" height="400" alt="Alex Shatov" /></div>
-                                                <div className="font-small text-gray-800">{selectedMovieDetail.opening_crawl}</div>
+                                                <div className=" xs:text-xs sm: text-sm md:text-md text-gray-800 max-h-52 w-full overflow-auto">{selectedMovieDetail.opening_crawl}</div>
 
                                             </div>
 
@@ -162,28 +163,11 @@ const MovieListItems = (props: any) => {
 
 
                                             </div>
-                                            <div className='flex flex-row'>
-                                                <div
-                                                    data-te-chip-init
-                                                    data-te-ripple-init
-                                                    className="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
-                                                    data-te-close="true">
-                                                    Internet Movie Database : 78%
-                                                </div>
-                                                <div
-                                                    data-te-chip-init
-                                                    data-te-ripple-init
-                                                    className="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
-                                                    data-te-close="true">
-                                                    Rotten Tomatoes : 79%
-                                                </div>
-                                                <div
-                                                    data-te-chip-init
-                                                    data-te-ripple-init
-                                                    className="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
-                                                    data-te-close="true">
-                                                    MetaCritics : 68%
-                                                </div>
+                                            <div className='md:flex xs:flex-none flex-row my-2' >
+                                               <Ratingchips ctext="Internet Movie Database : 76%"/>
+                                               <Ratingchips ctext="Rotten Tomatoes : 79%"/>
+                                               <Ratingchips ctext="MetaCritics : 68%"/>
+                                                
                                             </div>
 
                                         </div>
