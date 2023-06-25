@@ -8,7 +8,7 @@ export const filterBySearch = (query:string,movieData:any) => {
     });
     // Trigger render with updated values
     return updatedList
-
+ 
 
   };
 

@@ -50,7 +50,7 @@ const MovieListItems = () => {
     return (
         <section className="antialiase text-gray-600 px-4 h-full">
             {
-                loading ? <div className='flex justify-center items-center h-full'>
+                loading ? <div className='flex justify-center items-center h-full' title='loading'>
                     <Oval
                         height={50}
                         width={50}
@@ -66,7 +66,7 @@ const MovieListItems = () => {
                     />
                 </div> :
 
-                    <div className=" xl:flex flex-none container my-4 md:min-w-0 min-w-full" >
+                    <div className=" xl:flex flex-none container my-4 md:min-w-0 min-w-full"  title='movielistcontainer'>
 
                         <div className="w-full max-w-2xl   bg-white shadow-lg rounded-sm border border-gray-200">
                             <header className="px-5 py-4 border-b border-gray-100">
@@ -77,8 +77,8 @@ const MovieListItems = () => {
                                     onChange={(e: React.SyntheticEvent<HTMLInputElement>) => handleInputSearchChange(e)} />
                             </header>
                             <div className="p-3">
-                                <div className="overflow-x-auto">
-                                    <table className="table-auto min-w-4xl">
+                                <div className="overflow-x-auto" >
+                                    <table className="table-auto min-w-4xl" >
                                         <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                             <tr>
                                                 <th className="p-1 xl:p-2 md:p-2 whitespace-nowrap" >
@@ -98,7 +98,7 @@ const MovieListItems = () => {
                                         {
                                             filterMovielist?.map((item: any,index) => (
                                                 <tbody className="text-xs sm:text-sm  divide-y divide-gray-100 cursor-pointer" key={index}>
-                                                    <tr onClick={() => handleClick(item)} >
+                                                    <tr onClick={() => handleClick(item)} data-testid="table-row" >
                                                         <td className="p-1 sm:p-2 whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <div>{"EPISODE " + item.episode_id}</div>
@@ -138,7 +138,7 @@ const MovieListItems = () => {
                                 <div className="overflow-none">
 
                                     {
-                                        selectedMovieDetail.title ? <div>
+                                        selectedMovieDetail.title ? <div title="movie-details">
                                             <div className="font-semibold text-gray-800">{"EPISODE " + selectedMovieDetail.episode_id} -{selectedMovieDetail.title}</div>
 
                                             <div className='flex flex-column my-8'>
