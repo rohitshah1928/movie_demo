@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import './App.css';
-import MovieListItems from './components/MovieListItems';
 import { movieList } from './store/features/movieSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './store/store';
+import MovieDashboard from './pages/MovieDashboard';
 
 
 
@@ -15,7 +15,7 @@ function App() {
     }, [])
     return (
         <>
-            <MovieListItems />  
+          <MovieDashboard/> 
         </>
 
 
